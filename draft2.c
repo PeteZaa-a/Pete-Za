@@ -64,7 +64,11 @@ void search() {
         {
             printf("%s", data);
         }
-       
+       else 
+        {
+            printf("No data found");
+            break;
+        }
     }
 
     
@@ -133,3 +137,4 @@ int main () {
     fclose(fptr);
 
 }
+
