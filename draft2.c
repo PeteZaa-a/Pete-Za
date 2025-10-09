@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include "1_final_unit_test.c"
 #include "2_unit_test.c"
-#include "e2e.c"
+#include "e2ee.c"
 
 void remove_newline(char *s) {
     size_t len = strlen(s);
@@ -13,9 +13,7 @@ void remove_newline(char *s) {
     }
 }
 
-char e2e_t(){
-    return main_loop();
-}
+
 
 void clear_input_buffer() {
     int c;
