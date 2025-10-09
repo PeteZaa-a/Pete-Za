@@ -4,13 +4,17 @@
 #include <ctype.h>
 #include "1_final_unit_test.c"
 #include "2_unit_test.c"
-
+#include "e2e.c"
 
 void remove_newline(char *s) {
     size_t len = strlen(s);
     if (len > 0 && s[len - 1] == '\n') {
         s[len - 1] = '\0';
     }
+}
+
+char e2e_t(){
+    return main_loop();
 }
 
 void clear_input_buffer() {
@@ -176,23 +180,12 @@ void update(){
 }
 
 void test_add(){
-
     setup_test_files();
     test_add_user_in_loop();
-    return 0;
-
 }
 
 void test_update() {
     test_update_all_users();
-    return 0;
-
-}
-
-void e2e() {
-
-
-
 }
 
 void delete() {
@@ -325,11 +318,11 @@ int main () {
             break;
         case 7:
             printf("Tester 2 (Update user)\n");
-            //test_update();
+            test_update();
             break;
         case 8:
-            printf("End to End Testing");
-            
+            printf("End to End Testing\n");
+            e2e_t();
             break;
         case 9:
             printf("Exiting program");
