@@ -132,22 +132,22 @@ void setup_test_files() {
     fprintf(expect_file, "Aum Disappear,Disappear,2000-01-31,Rejected\n");    
     fclose(expect_file);
 }
-void remove_newline(char *s) {
+void remove_newline1(char *s) {
     size_t len = strlen(s);
     if (len > 0 && s[len - 1] == '\n') {
         s[len - 1] = '\0';
     }
 }
 
-void add_user() {
+void add_user1() {
     FILE *fptr;
     fptr = fopen("test_add_user_data.csv", "a"); 
     if (fptr == NULL) { return; }
     char name[256], course[50], date[25], status[10];
     fgets(name, sizeof(name), stdin); 
-    remove_newline(name); 
+    remove_newline1(name); 
     fgets(course, sizeof(course), stdin);
-    remove_newline(course); 
+    remove_newline1(course); 
     scanf("%24s", date); 
     scanf(" %9s", status); 
     fprintf(fptr, "%s,%s,%s,%s\n", name, course, date, status);
@@ -183,7 +183,7 @@ void test_add_user_in_loop() {
 
         freopen("temp_input.txt", "r", stdin);
         remove("test_add_user_data.csv");
-        add_user();
+        add_user1();
         freopen("CON", "r", stdin);
 
         FILE* result_file = fopen("test_add_user_data.csv", "r");
@@ -193,8 +193,8 @@ void test_add_user_in_loop() {
         fgets(file_content, sizeof(file_content), result_file);
         fclose(result_file);
 
-        remove_newline(file_content);
-        remove_newline(expect_line);
+        remove_newline1(file_content);
+        remove_newline1(expect_line);
 
         printf("\n--- DEBUGGING Case #%d ---\n", test_case);
         printf("                : Name,Course,Date,Status\n");
@@ -218,8 +218,9 @@ void test_add_user_in_loop() {
     printf("===============================================================\n");
 }
 
-int main() {
+/*int main() {
     setup_test_files();
     test_add_user_in_loop();
     return 0;
 }
+    */
