@@ -23,19 +23,19 @@ const char* relevant_courses[] = {
 const int num_courses = sizeof(relevant_courses) / sizeof(relevant_courses[0]);
 
 
-void remove_newline(char *s) {
+void remove_newline2(char *s) {
     size_t len = strlen(s);
     if (len > 0 && s[len - 1] == '\n') {
         s[len - 1] = '\0';
     }
 }
 
-void clear_input_buffer() {
+void clear_input_buffer2() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-void update(){
+void update2(){
     const char* main_filename = "test_update_data.csv";
     const char* temp_filename = "temp_update.csv";
     
@@ -44,9 +44,10 @@ void update(){
     int found = 0;
     
     fgets(user, sizeof(user), stdin);
-    remove_newline(user);
-    scanf("%9s", status);
-    clear_input_buffer(); 
+    remove_newline2(user);
+    // FIX: เพิ่ม space เพื่อให้ scanf ข้าม \n ที่ค้างอยู่
+    scanf(" %9s", status); 
+    clear_input_buffer2(); 
 
     fptr = fopen(main_filename, "r");
     temp = fopen(temp_filename, "w");
@@ -86,7 +87,7 @@ void update(){
     }
 }
 
-void get_line_from_file(const char* filename, int line_number, char* buffer, size_t buffer_size) {
+void get_line_from_file2(const char* filename, int line_number, char* buffer, size_t buffer_size) {
     FILE* file = fopen(filename, "r");
     if (!file) { buffer[0] = '\0'; return; }
     for (int i = 1; i <= line_number; ++i) {
@@ -121,8 +122,8 @@ void test_update_all_users() {
 
         printf("--> Processing User: %s\n", current_user_name);
 
-        get_line_from_file("test_update_data.csv", i + 1, line_before, sizeof(line_before));
-        remove_newline(line_before);
+        get_line_from_file2("test_update_data.csv", i + 1, line_before, sizeof(line_before));
+        remove_newline2(line_before);
         printf("    Before : [%s]\n", line_before);
 
         if ((i + 1) % 3 == 0) strcpy(new_status, "Withdrawn");
@@ -134,16 +135,16 @@ void test_update_all_users() {
         fclose(temp_input_file);
         
         freopen("temp_input.txt", "r", stdin);
-        update();
+        update2();
         freopen("CON", "r", stdin);
         remove("temp_input.txt");
 
-        get_line_from_file("test_update_data.csv", i + 1, line_after, sizeof(line_after));
-        remove_newline(line_after);
+        get_line_from_file2("test_update_data.csv", i + 1, line_after, sizeof(line_after));
+        remove_newline2(line_after);
         printf("    After  : [%s]\n", line_after);
 
         assert(strstr(line_after, new_status) != NULL);
-        printf("    ✅ Status Check for '%s' PASSED.\n\n", new_status);
+        printf("    Status Check for '%s' PASSED.\n\n", new_status);
     }
     
     remove("test_update_data.csv");
@@ -152,8 +153,9 @@ void test_update_all_users() {
     printf("====================================================================\n");
 }
 
-
+/*
 int main() {
     test_update_all_users();
     return 0;
 }
+   */ 
