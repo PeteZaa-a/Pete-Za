@@ -3,31 +3,6 @@
 #include <stdlib.h>
 #include <assert.h>
 
-void remove_newline(char *s) {
-    size_t len = strlen(s);
-    if (len > 0 && s[len - 1] == '\n') {
-        s[len - 1] = '\0';
-    }
-}
-
-void add_user() {
-    FILE *fptr;
-    fptr = fopen("test_add_user_data.csv", "a"); 
-    if (fptr == NULL) {
-        perror("Cannot open file for testing");
-        return; 
-    }
-    char name[256], course[50], date[25], status[10];
-    fgets(name, sizeof(name), stdin); 
-    remove_newline(name); 
-    fgets(course, sizeof(course), stdin);
-    remove_newline(course); 
-    scanf("%24s", date); 
-    scanf("%9s", status); 
-    fprintf(fptr, "%s,%s,%s,%s\n", name, course, date, status);
-    fclose(fptr); 
-}
-
 void setup_test_files() {
     FILE* data_file = fopen("test_data.txt", "w");
     assert(data_file != NULL);
@@ -157,6 +132,27 @@ void setup_test_files() {
     fprintf(expect_file, "Aum Disappear,Disappear,2000-01-31,Rejected\n");    
     fclose(expect_file);
 }
+void remove_newline(char *s) {
+    size_t len = strlen(s);
+    if (len > 0 && s[len - 1] == '\n') {
+        s[len - 1] = '\0';
+    }
+}
+
+void add_user() {
+    FILE *fptr;
+    fptr = fopen("test_add_user_data.csv", "a"); 
+    if (fptr == NULL) { return; }
+    char name[256], course[50], date[25], status[10];
+    fgets(name, sizeof(name), stdin); 
+    remove_newline(name); 
+    fgets(course, sizeof(course), stdin);
+    remove_newline(course); 
+    scanf("%24s", date); 
+    scanf(" %9s", status); 
+    fprintf(fptr, "%s,%s,%s,%s\n", name, course, date, status);
+    fclose(fptr); 
+}
 
 void test_add_user_in_loop() {
     printf("======= Running Final Verified Unit Test for add_user =======\n");
@@ -222,20 +218,8 @@ void test_add_user_in_loop() {
     printf("===============================================================\n");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int main() {
+    setup_test_files();
+    test_add_user_in_loop();
+    return 0;
+}
