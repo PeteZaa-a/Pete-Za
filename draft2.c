@@ -2,6 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "1_final_unit_test.c"
+#include "2_unit_test.c"
+
 
 void remove_newline(char *s) {
     size_t len = strlen(s);
@@ -172,7 +175,25 @@ void update(){
     return;
 }
 
+void test_add(){
 
+    setup_test_files();
+    test_add_user_in_loop();
+    return 0;
+
+}
+
+void test_update() {
+    test_update_all_users();
+    return 0;
+
+}
+
+void e2e() {
+
+
+
+}
 
 void delete() {
 
@@ -299,13 +320,16 @@ int main () {
             show_all();
             break;
         case 6:
-            printf("Tester 1\n");
+            printf("Tester 1 (Add User)\n");
+            test_add();
             break;
         case 7:
-            printf("Tester 2");
+            printf("Tester 2 (Update user)\n");
+            //test_update();
             break;
         case 8:
             printf("End to End Testing");
+            
             break;
         case 9:
             printf("Exiting program");
